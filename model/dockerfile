@@ -1,0 +1,20 @@
+FROM tensorflow/tensorflow:2.14.0
+
+WORKDIR /app
+
+COPY monosyllables_model_v0.keras .
+COPY app.py .
+
+RUN pip install --no-cache-dir \
+    fastapi==0.115.3 \
+    uvicorn==0.32.0 \
+    librosa==0.10.1 \
+    numpy==1.26.4 \
+    scipy==1.14.1
+
+EXPOSE 8125
+
+# Deshabilitar AVX
+ENV TF_ENABLE_ONEDNN_OPTS=0
+
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8125", "--log-level", "debug"]
