@@ -6,7 +6,7 @@ set -e
 
 function train_model {
   echo "Entrenando el modelo..."
-  sudo docker run --rm -v "$(pwd)/train_model:/app/Monosyllables" monosillabic-model bash -c "cd /app/Monosyllables && python train.py && cp monosyllables_model_v0.keras ../monosyllables_model_v0.keras"
+  sudo docker run --rm -v "$(pwd)/train_model:/app/Monosyllables" monosillabic-model bash -c "cd /app/Monosyllables && python train.py && cp monosyllables_model_v2.keras ../monosyllables_model_v0.keras"
   echo "Entrenamiento completado."
 }
 
