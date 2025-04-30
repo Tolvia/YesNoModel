@@ -281,5 +281,5 @@ print(np.argmax(model.predict(test_mfcc_data), axis=1))
 print(" ")
 print(test_labels)
 
-model.save('monosyllables_model_v2.keras')
+model.save('monosyllables_model_v3.keras')
 

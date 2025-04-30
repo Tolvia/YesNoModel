@@ -32,7 +32,7 @@ FRAME_SIZE = 512
 
 logger.info("Iniciando la carga del modelo...")
 try:
-    model = tf.keras.models.load_model("/app/monosyllables_model_v0.keras")
+    model = tf.keras.models.load_model("/app/monosyllables_model_v3.keras")
     logger.info("Modelo cargado exitosamente")
 except Exception as e:
     logger.error(f"Error al cargar el modelo: {str(e)}")
