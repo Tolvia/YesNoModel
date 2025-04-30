@@ -101,7 +101,7 @@ async def predict_audio(file: UploadFile):
         audio_array = np.frombuffer(audio_bytes, dtype=np.uint8)
         logger.debug(f"Array numpy creado, forma: {audio_array.shape}")
 
-	pcm16_bytes = audioop.alaw2lin(audio_bytes, 2)
+        pcm16_bytes = audioop.alaw2lin(audio_bytes, 2)
         # Convert PCM16 to float32 in range [-1.0, 1.0]
         audio_int16 = np.frombuffer(pcm16_bytes, dtype=np.int16)
         audio_float32 = audio_int16.astype(np.float32) / 32768.0
