@@ -5,6 +5,7 @@ import tensorflow as tf
 import logging
 import sys
 import json
+import pyaudio
 
 # Configurar logging para stdout sin buffering
 logging.basicConfig(
