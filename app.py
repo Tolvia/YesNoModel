@@ -16,13 +16,19 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-CLASSES = ["si", "nothing", "no", "ya", "que", "yo"]
-NMFCC = 13
-HOP_LENGTH = 60
-SAMPLE_RATE = 8000 
+NMFCC=13
+HOP_LENGTH = 20
+SAMPLE_RATE = 8000  # 8 kHz for mono audio
+CHANNELS = 1        # Mono audio
+FORMAT = pyaudio.paFloat32  # Float32 audio format
+CHUNK_SIZE = 2048   # Size of each audio chunk
+MAX_UTTERANCE_TIME = 2  # Max duration of utterance in seconds for buffering
+MAX_FRAMES = 160     # Max number of MFCC frames (as per previous model setup)
+
+CLASSES = ["No", "Sí", "nothing"]
+SAMPLE_RATE = 8000
 N_FFT = 512
 FRAME_SIZE = 512
-MAX_FRAMES = 300
 
 logger.info("Iniciando la carga del modelo...")
 try:
@@ -95,7 +101,13 @@ async def predict_audio(file: UploadFile):
         audio_array = np.frombuffer(audio_bytes, dtype=np.uint8)
         logger.debug(f"Array numpy creado, forma: {audio_array.shape}")
 
-        audio_linear = alaw_to_linear(audio_array)
+	pcm16_bytes = audioop.alaw2lin(audio_bytes, 2)
+        # Convert PCM16 to float32 in range [-1.0, 1.0]
+        audio_int16 = np.frombuffer(pcm16_bytes, dtype=np.int16)
+        audio_float32 = audio_int16.astype(np.float32) / 32768.0
+
+        audio_linear = audio_float32
+
         mfcc_features = extract_mfcc(audio_linear)
         prediction = predict_class(mfcc_features)
 
