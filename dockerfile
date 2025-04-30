@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir \
 
 COPY app.py .
 
-COPY monosyllables_model_v0.keras .
+COPY monosyllables_model_v3.keras .
 
 EXPOSE 8125
 
