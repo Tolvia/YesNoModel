@@ -22,7 +22,7 @@ CHANNELS = 1        # Mono audio
 FORMAT = pyaudio.paFloat32  # Float32 audio format
 CHUNK_SIZE = 512   # Size of each audio chunk
 MAX_UTTERANCE_TIME = 2  # Max duration of utterance in seconds for buffering
-MAX_FRAMES = 300     # Max number of MFCC frames (as per previous model setup)
+MAX_FRAMES = 400     # Max number of MFCC frames (as per previous model setup)
 
 def normalize(a):
 	max_peak = np.max(np.abs(a))
