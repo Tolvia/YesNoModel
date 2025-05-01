@@ -6,6 +6,7 @@ import logging
 import sys
 import json
 import pyaudio
+import audioop
 
 # Configurar logging para stdout sin buffering
 logging.basicConfig(
@@ -24,7 +25,7 @@ CHANNELS = 1        # Mono audio
 FORMAT = pyaudio.paFloat32  # Float32 audio format
 CHUNK_SIZE = 2048   # Size of each audio chunk
 MAX_UTTERANCE_TIME = 2  # Max duration of utterance in seconds for buffering
-MAX_FRAMES = 160     # Max number of MFCC frames (as per previous model setup)
+MAX_FRAMES = 600     
 
 CLASSES = ["No", "Sí", "nothing"]
 SAMPLE_RATE = 8000
@@ -65,7 +66,7 @@ def extract_mfcc(audio_data, sr=SAMPLE_RATE):
         y=audio_data, sr=sr, n_mfcc=NMFCC, n_fft=N_FFT,
         hop_length=HOP_LENGTH, win_length=FRAME_SIZE
     )
-    mfcc = mfcc.T  
+    mfcc = mfcc.T
     logger.debug(f"MFCC calculado, forma inicial: {mfcc.shape}")
     if mfcc.shape[0] < MAX_FRAMES:
         pad_width = MAX_FRAMES - mfcc.shape[0]
@@ -75,7 +76,7 @@ def extract_mfcc(audio_data, sr=SAMPLE_RATE):
         mfcc = mfcc[:MAX_FRAMES, :]
         logger.debug(f"Recortado a {MAX_FRAMES} bloques")
 
-    mfcc = mfcc[np.newaxis, ...] 
+    mfcc = mfcc[np.newaxis, ...]
     logger.debug(f"Forma final de MFCC: {mfcc.shape}")
     return mfcc
 
