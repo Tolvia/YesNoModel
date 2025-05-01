@@ -5,6 +5,7 @@ import tensorflow as tf
 import audioop
 import logging
 import sys
+import json
 
 
 # Configurar logging para stdout sin buffering
@@ -91,7 +92,7 @@ async def predict_audio(file: UploadFile):
         mfcc = extract_mfcc(audio)
         pred = predict_class(mfcc)
         logger.info(f"Predicción completada: {pred}")
-        return {"prediction": pred}
+        return json.dumps({"prediction": pred}, ensure_ascii=False)
 
     except Exception as e:
         logger.error(f"Error en el procesamiento: {str(e)}")
