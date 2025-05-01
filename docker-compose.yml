@@ -1,0 +1,9 @@
+services:
+  yesnomodel:
+    image: monosillabic-model:latest
+    container_name: monosillabic-model
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8125:8125"
