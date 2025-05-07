@@ -27,7 +27,7 @@ CHUNK_SIZE = 2048   # Size of each audio chunk
 MAX_UTTERANCE_TIME = 2  # Max duration of utterance in seconds for buffering
 MAX_FRAMES = 600     
 
-CLASSES = ["No", "Sí", "nothing"]
+CLASSES = ["Sí", "nothing","No"]
 SAMPLE_RATE = 8000
 N_FFT = 512
 FRAME_SIZE = 512
